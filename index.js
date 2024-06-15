@@ -3,6 +3,7 @@ const app = express()
 const cors = require('cors')
 app.use(cors())
 app.use(express.json())
+app.use(express.static('dist'))
 
 let notes = [
     {
@@ -51,6 +52,15 @@ app.delete('/api/notes/:id', (req, res) => {
     const id = req.params.id
     notes = notes.filter(n => n.id != id)
     res.status(204).end()
+})
+
+app.put('/api/notes/:id', (req, res) => {
+    const id = req.params.id
+    const note = notes.find(n => n.id === Number(id))
+    if (!note) res.status(204).end()
+    const newNote = { id: note.id, content: note.content, important: !important }
+    notes = notes.filter(n => n.id !== Number(id) ? n : newNote)
+    res.json(newNote)
 })
 
 app.post('/api/notes', (req, res) => {

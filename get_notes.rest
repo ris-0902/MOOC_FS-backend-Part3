@@ -1,0 +1,3 @@
+DELETE  http://localhost:3001/api/notes/666ff8f4aa36bc8bdc09ba9c
+###
+GET http://localhost:3001/api/notes
